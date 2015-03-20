@@ -11,7 +11,6 @@ cfs:standard-packages
 cfs:power-queue
 cfs:micro-queue
 cfs:reactive-list
-cfs:ui
 cfs:upload-http
 cfs:transfer
 cfs:tempstore
@@ -26,4 +25,9 @@ cfs:filesaver
 cfs:reactive-property
 cfs:gridfs
 iron:router
+cfs:ui
+jquery
+reactive-var
+twbs:bootstrap
 
+fortawesome:fontawesome

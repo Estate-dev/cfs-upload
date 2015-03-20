@@ -1,57 +1,136 @@
 <head>
-  <title>Simple cfs Image Upload Test</title>
+  <title>Estate : CFS fichier upload system Upload for Test v0.10.0</title>
 </head>
 
-<body></body>
+<body>
+
+  {{>yield}}
+</body>
 
 <template name="uploadField">
-  <h3 class="page-title">
-    Simple cfs Image Upload Test
-  </h3>
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"> ESTATE</a>
+    </div>
 
-  {{> dropZone}}
-  {{> fileTable}}
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">ESTATE</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        {{> fileTable}}
+      </div>
+    </div>
+  </div>
 
 </template>
 
 
 <template name="dropZone">
-  <div class="box-uploader">
-    Select file(s) to upload (<b>JPG only</b>) 
-    <input type="file" class="fileUploader" multiple>
-  </div>
-</template>
+    <fieldset>
+      <legend>Selectionnez les plans et/ou fichier(s) à uploader</legend>
+      <div class="form-group">
+        <div class="text-center">
+        <div class="input-group">
+          <input id="fileName" name="fileName" type="text" class="form-control">
+            <span class="input-group-btn">
+                <span class="btn btn-primary btn-file">
+                    <i class="fa fa-upload"></i> <input type="file"
+                    class="fileUploader" multiple>
+                </span>
+            </span>
+        </div>
+        <span class="help-block">
+            <i class="fa fa-info-circle"> </i> Les formats de documents acceptés sont : JPG, JPEG, PNG, GIF, PDF...
+        </span>
+      </div>
 
+      </div>
+    </fieldset>
+</template>
 
 <template name="fileTable">
   <div class="filetable">
-    <table>
-      {{#each files}}
-        <tr>
-          <td>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"></h3>
+        {{> dropZone}}
+      </div>
+      <div class="panel-body">
+        {{> UploadTable}}
+      </div>
+      <div class="panel-footer">
+
+      </div>
+    </div>
+
+  </div>
+</template>
+<template name="UploadTable">
+  {{#with files}}
+  {{#if count}}
+  <table class="table table-hover">
+    <thead>
+      <tr><td>#</td><td>nom du document</td><td>status</td><td>actions</td></tr>
+    </thead>
+    <tbody>
+    {{#each files}}
+      <tr>
+        <td>
             {{#if isUploaded}}
-              <a href="{{this.url store='images-original' auth=false}}">
-                <img src="{{this.url store='images-original'}}" height="64">
+              <a href="{{this.url store='files-original' auth=false}}">
+                <img class="img-thumbnail" src="{{this.url store='files-original'}}" style="height:30px!important">
               </a>
             {{/if}}
-          </td>
-          <td>
-            {{name}}
-          </td>
-          <td>
-            {{#if isUploaded}}
-              <i>uploaded</i>
-            {{else}}
-              <i>uploading: {{uploadProgress}}%</i>
+        </td>
+        <td>
+          {{name}}
+        </td>
+        <td>
+          {{#if isUploaded}}
+          <div class="progress">
+            <div class="progress-bar progress-bar-info" role="progressbar"
+              aria-valuenow="{{uploadProgress}}" aria-valuemin="0"
+              aria-valuemax="100" style="width:{{uploadProgress}}%; ">
+              <span class="sr-only">{{uploadProgress}}%</span>
+            </div>
+          </div>
+          {{else}}
+          <div class="progress">
+            <div class="progress-bar" role="progressbar"
+              aria-valuenow="{{uploadProgress}}" aria-valuemin="0"
+              aria-valuemax="100" style="width:{{uploadProgress}}%; ">
+              <span class="sr-only">{{uploadProgress}}%</span>
+            </div>
+          </div>
             {{/if}}
-          </td>
-          <td>
-            <input type="button" class="remove" value="x">
-          </td>
-        </tr>
-      {{else}}
-        <h3>No files uploaded.</h3>
+        </td>
+        <td>
+          <i class="fa fa-trash remove btn btn-danger"> </i>
+        </td>
+      </tr>
       {{/each}}
-    </table>
+    </tbody>
+  </table>
+  {{else}}
+  <div class="alert alert-info text-center">
+    <h3>
+      <i class="fa fa-question fa-2x"></i><br/>Il semblerait que vous n'avez pas encore uploader de plan(s) pour ce bien ...</h3>
   </div>
+{{/if}}
+
+    {{/with}}
 </template>

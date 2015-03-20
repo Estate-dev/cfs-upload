@@ -3,14 +3,14 @@ FS.debug = true;
 
 //__ FileStore
 // ---> cfs:filesystem
-// var ImagesStore = new FS.Store.FileSystem('images-original');
+var FilesStore = new FS.Store.FileSystem('files-original', {'path':'~/www/cfs-upload/uploads'});
 
 // ---> cfs:gridfs
-var ImagesStore = new FS.Store.GridFS('images-original');
+//var FilesStore = new FS.Store.GridFS('files-original');
 
 //__ FileCollection
-Images = new FS.Collection('images', {
-  stores: [ImagesStore],
+Files = new FS.Collection('files', {
+  stores: [FilesStore],
   filter: {
     maxSize: 1048576 * 4, //in bytes
     allow: {
@@ -25,7 +25,7 @@ Images = new FS.Collection('images', {
   }
 });
 
-Images.allow({
+Files.allow({
   insert: function(userId, fileObj) {
     return true;
   },
@@ -41,6 +41,6 @@ Images.allow({
   fetch: []
 });
 
-Meteor.publish('images', function() {
-  return Images.find({}, { limit: 0 });
+Meteor.publish('files', function() {
+  return Files.find({}, { limit: 0 });
 });
