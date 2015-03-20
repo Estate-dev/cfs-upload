@@ -1,0 +1,57 @@
+<head>
+  <title>Simple cfs Image Upload Test</title>
+</head>
+
+<body></body>
+
+<template name="uploadField">
+  <h3 class="page-title">
+    Simple cfs Image Upload Test
+  </h3>
+
+  {{> dropZone}}
+  {{> fileTable}}
+
+</template>
+
+
+<template name="dropZone">
+  <div class="box-uploader">
+    Select file(s) to upload (<b>JPG only</b>) 
+    <input type="file" class="fileUploader" multiple>
+  </div>
+</template>
+
+
+<template name="fileTable">
+  <div class="filetable">
+    <table>
+      {{#each files}}
+        <tr>
+          <td>
+            {{#if isUploaded}}
+              <a href="{{this.url store='images-original' auth=false}}">
+                <img src="{{this.url store='images-original'}}" height="64">
+              </a>
+            {{/if}}
+          </td>
+          <td>
+            {{name}}
+          </td>
+          <td>
+            {{#if isUploaded}}
+              <i>uploaded</i>
+            {{else}}
+              <i>uploading: {{uploadProgress}}%</i>
+            {{/if}}
+          </td>
+          <td>
+            <input type="button" class="remove" value="x">
+          </td>
+        </tr>
+      {{else}}
+        <h3>No files uploaded.</h3>
+      {{/each}}
+    </table>
+  </div>
+</template>
