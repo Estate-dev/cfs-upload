@@ -30,6 +30,7 @@ cfs:upload-ddp@0.0.17
 cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.0.5
+chrismbeckett:toastr@2.1.0
 ddp@1.1.0
 deps@1.0.7
 ejson@1.0.6

@@ -44,8 +44,9 @@ Template.dropZone.events({
   'click .fileUploader':function (event, temp) {
     if (temp.find('#fileName').value === '') {
       event.preventDefault();
-        alert('Veuillez nommer le fichier!');
+        toastr.error('Veuillez nommer le fichier!', 'Ce qu\'il faut savoir ...');
     }else{
+      toastr.clear();
       return true;
     }
   },
@@ -57,6 +58,7 @@ Template.dropZone.events({
             console.log('Error msg is : ' + error);
           else
             $('.fileUploader').css('display', 'none');
+            toastr.success("Votre fichier a bien été enregistré", "Ce qu'il fallait faire...");
             temp.find('#fileName').value = '' ;
         });
       });
@@ -84,4 +86,21 @@ Template.UploadTable.events({
       Files.remove(this._id);
     }
   }
-})
+});
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": true,
+  "progressBar": true,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "600",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
