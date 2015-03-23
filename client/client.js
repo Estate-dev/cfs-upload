@@ -94,17 +94,25 @@ Template.UploadTable.events({
     }
   }
 });
-Template.UploadTable.rendered = function() {
-// Hide the placeholder message when user start writting into a input 
-  if ($.browser.webkit) {
-    $('input, textarea').on('focus', function() {
-      if ($(this).attr('placeholder')) $(this).data('placeholder', $(this).attr('placeholder')).removeAttr('placeholder');
-    }).on('blur', function() {
-      if ($(this).data('placeholder')) $(this).attr('placeholder', $(this).data('placeholder')).removeData('placeholder');
-    });
+Template.fileTable.helpers({
+  fileNumber: function(){
+    return Files.find().count();
   }
+});
+Template.fileTable.events({
+  'click #info-upload': function () {
+      Modal.show('ModalUploadInfo');
+  },
+// Hide the placeholder message when user start writting into a input
+  // if ($.browser.webkit) {
+  //   $('input, textarea').on('focus', function() {
+  //     if ($(this).attr('placeholder')) $(this).data('placeholder', $(this).attr('placeholder')).removeAttr('placeholder');
+  //   }).on('blur', function() {
+  //     if ($(this).data('placeholder')) $(this).attr('placeholder', $(this).data('placeholder')).removeData('placeholder');
+  //   });
+  // }
 
-}
+});
 toastr.options = {
   "closeButton": false,
   "debug": false,

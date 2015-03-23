@@ -3,7 +3,7 @@ FS.debug = true;
 
 //__ FileStore
 // ---> cfs:filesystem
-var FilesStore = new FS.Store.FileSystem('files-original', {'path':'~/www/cfs-upload/uploads'});
+var FilesStore = new FS.Store.FileSystem('files-original', {'path':'/home/slam310/www/cfs-upload/uploads'});
 
 // ---> cfs:gridfs
 //var FilesStore = new FS.Store.GridFS('files-original');
