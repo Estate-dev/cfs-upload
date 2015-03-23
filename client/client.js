@@ -1,3 +1,4 @@
+PropertyDocs = new Mongo.Collection('propertydocs');
 //__ FileStore
 
 // ---> cfs:filesystem
@@ -31,43 +32,46 @@ Meteor.subscribe('files');
 //__ Dropzone
 
 Template.dropZone.events({
-  'change #fileName': function(event, temp) {
-    console.log('#fileName input change event');
-    if (temp.find('#fileName').value === '') {
+  'change #fileName': function(event, tpl) {
+    console.log('#fileName :' + event.type);
+    if (tpl.find('#fileName').value === '') {
       event.preventDefault();
       $('.fileUploader').disabled = true;
-        alert('Veuillez nommer le fichier!');
-    }else{
+      toastr.warning("Ce qu'il faut savoir ...", "<h4><strong>Veuillez nommer le fichier !</strong</h4>");
+    } else {
       return true;
     }
   },
-  'click .fileUploader':function (event, temp) {
-    if (temp.find('#fileName').value === '') {
+  'click .fileUploader': function(event, tpl) {
+    if (tpl.find('#fileName').value === '') {
       event.preventDefault();
-        toastr.error('Veuillez nommer le fichier!', 'Ce qu\'il faut savoir ...');
-    }else{
+      toastr.warning("Ce qu'il faut savoir ...", "<h4><strong>Veuillez nommer le fichier !</strong</h4>");
+    } else {
       toastr.clear();
       return true;
     }
   },
-  'change .fileUploader': function(event, temp) {
-      FS.Utility.eachFile(event, function(file) {
-        var fileObj = new FS.File(file);
-        Files.insert(fileObj, function(error, result) {
-          if (error)
-            console.log('Error msg is : ' + error);
-          else
-            $('.fileUploader').css('display', 'none');
-            toastr.success("Votre fichier a bien été enregistré", "Ce qu'il fallait faire...");
-            temp.find('#fileName').value = '' ;
-        });
+  'change .fileUploader': function(event, tpl) {
+    var fileName = tpl.find('#fileName').value;
+    FS.Utility.eachFile(event, function(file) {
+      var fileObj = new FS.File(file);
+      fileObj.fileLabel = fileName;
+      Files.insert(fileObj, function(error, result) {
+        console.log('Nom du fichier = ' + fileName);
+        if (error)
+          console.log('Error msg is : ' + error);
+        else
+          $('.fileUploader').css('display', 'none');
+        toastr.success("Ce qu'il fallait faire...", "<h4>Votre fichier a bien été enregistré</h4>");
+        tpl.find('#fileName').value = '';
       });
+    });
   }
 });
 
 
 //__ Filetable
-
+var currentIndex = 0;
 Template.UploadTable.helpers({
   files: function() {
     return Files.find({}, {
@@ -75,6 +79,9 @@ Template.UploadTable.helpers({
         uploadedAt: -1
       }
     });
+  },
+  listIndex: function() {
+    return currentIndex += 1;
   }
 });
 
@@ -87,12 +94,23 @@ Template.UploadTable.events({
     }
   }
 });
+Template.UploadTable.rendered = function() {
+// Hide the placeholder message when user start writting into a input 
+  if ($.browser.webkit) {
+    $('input, textarea').on('focus', function() {
+      if ($(this).attr('placeholder')) $(this).data('placeholder', $(this).attr('placeholder')).removeAttr('placeholder');
+    }).on('blur', function() {
+      if ($(this).data('placeholder')) $(this).attr('placeholder', $(this).data('placeholder')).removeData('placeholder');
+    });
+  }
+
+}
 toastr.options = {
   "closeButton": false,
   "debug": false,
   "newestOnTop": true,
   "progressBar": true,
-  "positionClass": "toast-top-center",
+  "positionClass": "toast-top-right",
   "preventDuplicates": false,
   "onclick": null,
   "showDuration": "600",
@@ -104,3 +122,6 @@ toastr.options = {
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 }
+UI.registerHelper('eachIndex', function() {
+  return currentIndex += 1;
+});

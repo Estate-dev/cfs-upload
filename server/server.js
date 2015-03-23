@@ -12,7 +12,7 @@ var FilesStore = new FS.Store.FileSystem('files-original', {'path':'~/www/cfs-up
 Files = new FS.Collection('files', {
   stores: [FilesStore],
   filter: {
-    maxSize: 1048576 * 4, //in bytes
+    maxSize: 41943040, //in bytes
     allow: {
       contentTypes: [
         'image/jpeg','image/jpg','image/png','image/gif','image/tiff',
@@ -35,7 +35,7 @@ Files.allow({
   remove: function(userId, fileObj) {
     return true;
   },
-  download: function(userId, fileObj /*, shareId*/) {
+  download: function(userId, fileObj) {
     return true;
   },
   fetch: []

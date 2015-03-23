@@ -28,7 +28,7 @@ iron:router
 cfs:ui
 jquery
 reactive-var
-twbs:bootstrap
-
+less
+nemo64:bootstrap
 fortawesome:fontawesome
 chrismbeckett:toastr

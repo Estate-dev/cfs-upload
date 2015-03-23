@@ -3,8 +3,6 @@
 </head>
 
 <body>
-
-  {{>yield}}
 </body>
 
 <template name="uploadField">
@@ -38,38 +36,15 @@
 
 </template>
 
-
-<template name="dropZone">
-    <fieldset>
-      <legend>Nommez puis selectionnez le plan à uploader</legend>
-      <div class="form-group">
-        <div class="text-center">
-        <div class="input-group">
-          <input id="fileName" name="fileName" type="text" class="form-control">
-            <span class="input-group-btn">
-                <span class="btn btn-primary btn-file">
-                    <i class="fa fa-upload"></i> <input type="file"
-                    class="fileUploader" multiple>
-                </span>
-            </span>
-        </div>
-        <span class="help-block">
-            <i class="fa fa-info-circle"> </i> Les formats de documents acceptés sont : JPG, JPEG, PNG, GIF, PDF...
-        </span>
-      </div>
-
-      </div>
-    </fieldset>
-</template>
-
 <template name="fileTable">
   <div class="filetable">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title"></h3>
-        {{> dropZone}}
+        <h3 class="panel-title ">Nommez puis selectionnez le plan à uploader</h3>
       </div>
       <div class="panel-body">
+        {{> dropZone}}
+        <hr/>
         {{> UploadTable}}
       </div>
       <div class="panel-footer">
@@ -79,37 +54,56 @@
 
   </div>
 </template>
+
+
+<template name="dropZone">
+      <div class="form-group">
+        <div class="text-center">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-file text-default"> </i></span>
+          <input id="fileName" name="fileName" type="text" class="form-control"
+          placeholder="Nommez le document p.e: Mon plan d'archi, Premier étage ...">
+            <span class="input-group-btn">
+                <span class="btn btn-primary btn-file">
+                    <i class="fa fa-upload"> </i>
+                    <input type="file" name="fileUploader" class="fileUploader" multiple>
+                </span>
+            </span>
+        </div>
+        <span class="help-block">
+            <i class="fa fa-info-circle"> </i> Les formats de documents acceptés sont : JPG, JPEG, PNG, GIF, PDF...
+        </span>
+      </div>
+
+      </div>
+
+</template>
 <template name="UploadTable">
   {{#with files}}
   {{#if count}}
-  <table class="table table-hover">
+  <table class="table table-striped table-hover">
     <thead>
-      <tr><td>#</td><td>Nom du document</td><td>Statut</td><td>Actions</td></tr>
+      <tr><td>#</td><td>Image</td><td>Nom du document</td><td>Statut</td><td>Actions</td></tr>
     </thead>
     <tbody>
-    {{#each files}}
+    {{#each  files}}
       <tr>
+          <td>{{eachIndex}}</td>
         <td>
             {{#if isUploaded}}
               <a href="{{this.url store='files-original' auth=false}}">
-                <img class="img-thumbnail" src="{{this.url store='files-original'}}" style="height:30px!important">
+                <img src="{{this.url store='files-original'}}" style="height:48px!important">
               </a>
             {{/if}}
         </td>
         <td>
-          {{name}}
+          {{fileLabel}}
         </td>
         <td>
           {{#if isUploaded}}
-          <div class="progress">
-            <div class="progress-bar progress-bar-info" role="progressbar"
-              aria-valuenow="{{uploadProgress}}" aria-valuemin="0"
-              aria-valuemax="100" style="width:{{uploadProgress}}%; ">
-              <span class="sr-only">{{uploadProgress}}%</span>
-            </div>
-          </div>
+          <label class="label label-success"><b>Uploadé</b></label>
           {{else}}
-          <div class="progress">
+          <div class="progress progress-striped active">
             <div class="progress-bar" role="progressbar"
               aria-valuenow="{{uploadProgress}}" aria-valuemin="0"
               aria-valuemax="100" style="width:{{uploadProgress}}%; ">
@@ -118,9 +112,14 @@
           </div>
             {{/if}}
         </td>
+        {{#if isUploaded}}
         <td>
-          <i class="fa fa-trash remove btn btn-danger"> </i>
+          <a href="{{this.url download=true}}" title="Télécharger ce fichier" class="btn btn-info btn-sm btn-download" data-toggle="tooltip" >
+            <i class="fa fa-download "> </i>
+          </a>
+          <i class="fa fa-trash btn btn-danger btn-sm remove" title="Supprimer ce fichier"> </i>
         </td>
+        {{/if}}
       </tr>
       {{/each}}
     </tbody>
@@ -133,4 +132,5 @@
 {{/if}}
 
     {{/with}}
+
 </template>
