@@ -1,9 +1,11 @@
+Meteor.startup(function(){
+   });
 PropertyDocs = new Mongo.Collection('propertydocs');
 //__ FileStore
 
 // ---> cfs:filesystem
 var FilesStore = new FS.Store.FileSystem('files-original');
-
+var FilesStoreThumb = new FS.Store.FileSystem('files-thumbs');
 // ---> cfs:gridfs
 //var FileStore = new FS.Store.GridFS('files-original');
 
@@ -11,7 +13,7 @@ var FilesStore = new FS.Store.FileSystem('files-original');
 //__ FileCollection
 
 Files = new FS.Collection('files', {
-  stores: [FilesStore],
+  stores: [FilesStore, FilesStoreThumb],
   filter: {
     allow: {
       contentTypes: [
@@ -61,7 +63,6 @@ Template.dropZone.events({
         if (error)
           console.log('Error msg is : ' + error);
         else
-          $('.fileUploader').css('display', 'none');
         toastr.success("Ce qu'il fallait faire...", "<h4>Votre fichier a bien été enregistré</h4>");
         tpl.find('#fileName').value = '';
       });
