@@ -1,5 +1,5 @@
 var filesPath = "";
-filesPath = '/mnt/uploads/toto';
+filesPath = '/mnt/uploads/nom_du_client';
 //__ Debug
 FS.debug = true;
 
@@ -20,7 +20,7 @@ var FilesStoreThumb = new FS.Store.FileSystem('files-thumbs', {
 
 //__ FileCollection
 Files = new FS.Collection('files', {
-  stores: [FilesStore, FilesStoreThumb],
+  stores: [FilesStoreThumb,FilesStore],
   filter: {
     maxSize: 41943040, //in bytes
     allow: {
