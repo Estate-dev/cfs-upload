@@ -2,7 +2,7 @@
   <title>Estate : CFS fichier upload system Upload for Test v0.10.0</title>
 </head>
 
-<template name="uploadField">
+<template name="UploadFileStep">
   <nav class="navbar navbar-default" role="navigation">
     <div class="container">
       <div class="navbar-header">
@@ -81,6 +81,7 @@
         <td>#</td>
         <td>Image</td>
         <td>Nom du document</td>
+        <td>Taille</td>
         <td>Statut</td>
         <td align="right">Actions</td>
       </tr>
@@ -98,6 +99,9 @@
         </td>
         <td>
           {{fileLabel}}
+        </td>
+        <td>
+          {{size}} 
         </td>
         <td>
           {{#if isUploaded}}

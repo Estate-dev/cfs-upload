@@ -22,7 +22,7 @@ var FilesStoreThumb = new FS.Store.FileSystem('files-thumbs', {
 Files = new FS.Collection('files', {
   stores: [FilesStoreThumb,FilesStore],
   filter: {
-    maxSize: 41943040, //in bytes
+    maxSize: 41943040, // 40mo in bytes
     allow: {
       contentTypes: [
         'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/tiff',
@@ -32,6 +32,13 @@ Files = new FS.Collection('files', {
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
       ],
       extensions: ['jpg', 'jpeg', 'png', 'dgw', 'tiff', 'gzip', 'pdf', 'doc', 'docx']
+    },
+    onInvalid: function (message) {
+      if (Meteor.isClient) {
+        alert(message);
+      } else {
+        console.log(message);
+      }
     }
   }
 });
@@ -52,8 +59,17 @@ Files.allow({
   fetch: []
 });
 
-Meteor.publish('files', function() {
-  return Files.find({}, {
-    limit: 0
-  });
+
+//___ Requests Collection
+Requests = new Mongo.Collection('requests');
+Requests.allow({
+  insert: function(userId, fileObj) {
+    return true;
+  },
+  update: function(userId, fileObj) {
+    return true;
+  },
+  remove: function(userId, fileObj) {
+    return true;
+  }
 });

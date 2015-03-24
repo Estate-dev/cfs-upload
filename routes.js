@@ -1,6 +1,6 @@
-
-Router.map(function(){
-	this.route('uploadField',{
-		path:'/'
-	});
+Router.route('/request/:name', {
+    name:'UploadFileStep',
+		waitOn: function () {
+			Meteor.subscribe("files", this.params.name);
+		},
 });

@@ -1,6 +1,4 @@
-Meteor.startup(function(){
-   });
-PropertyDocs = new Mongo.Collection('propertydocs');
+
 //__ FileStore
 
 // ---> cfs:filesystem
@@ -30,6 +28,10 @@ Files = new FS.Collection('files', {
 
 Meteor.subscribe('files');
 
+//__ Requests Collection
+Requests = new Mongo.Collection('requests');
+Meteor.subscribe("requests");
+
 
 //__ Dropzone
 
@@ -58,14 +60,19 @@ Template.dropZone.events({
     FS.Utility.eachFile(event, function(file) {
       var fileObj = new FS.File(file);
       fileObj.fileLabel = fileName;
-      Files.insert(fileObj, function(error, result) {
-        console.log('Nom du fichier = ' + fileName);
+      fileObj.requestName = 'request-2';
+      var fileUploaded = Files.insert(fileObj, function(error, result) {
+        console.log('le fichier = ' + fileUploaded._id);
         if (error)
           console.log('Error msg is : ' + error);
         else
         toastr.success("Ce qu'il fallait faire...", "<h4>Votre fichier a bien été enregistré</h4>");
         tpl.find('#fileName').value = '';
       });
+
+      if(Requests.find({name:'request-1'}).count() === 0 ) {
+        Requests.insert({name: 'request-1'});
+      }
     });
   }
 });
