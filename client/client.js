@@ -92,26 +92,27 @@ Template.UploadTable.events({
     if (confirm('Confirmez-vous la suppression ?')) {
       Files.remove(this._id);
     }
-  }
+  },
+  'click a[rel=propertyFiles]': function(e) {
+    e.preventDefault();
+  },
+
 });
+
+Template.UploadTable.rendered = function() {
+  $('a[rel=propertyFiles]').fancybox({
+    padding : 0
+  });
+}
 Template.fileTable.helpers({
-  fileNumber: function(){
+  fileNumber: function() {
     return Files.find().count();
   }
 });
 Template.fileTable.events({
-  'click #info-upload': function () {
-      Modal.show('ModalUploadInfo');
-  },
-// Hide the placeholder message when user start writting into a input
-  // if ($.browser.webkit) {
-  //   $('input, textarea').on('focus', function() {
-  //     if ($(this).attr('placeholder')) $(this).data('placeholder', $(this).attr('placeholder')).removeAttr('placeholder');
-  //   }).on('blur', function() {
-  //     if ($(this).data('placeholder')) $(this).attr('placeholder', $(this).data('placeholder')).removeData('placeholder');
-  //   });
-  // }
-
+  'click #info-upload': function() {
+    Modal.show('ModalUploadInfo');
+  }
 });
 toastr.options = {
   "closeButton": false,

@@ -14,7 +14,6 @@
         </button>
         <a class="navbar-brand" href="#"> ESTATE</a>
       </div>
-
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav navbar-right">
@@ -33,6 +32,7 @@
     </div>
   </div>
 </template>
+
 
 <template name="fileTable">
   <div class="panel panel-default">
@@ -91,8 +91,8 @@
         <td>{{eachIndex}}</td>
         <td>
           {{#if isUploaded}}
-          <a href="{{this.url store='files-original' auth=false}}">
-            <img src="{{this.url store='files-original'}}" style="height:48px!important">
+          <a href="{{this.url store="files-original" auth=false}}" rel="propertyFiles" title="{{fileLabel}}">
+            <img src="{{this.url store='files-original'}}" style="height:48px!important" >
           </a>
           {{/if}}
         </td>

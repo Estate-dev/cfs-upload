@@ -14,6 +14,7 @@ cfs:ejson-file@0.1.4
 cfs:file@0.1.16
 cfs:filesaver@0.0.6
 cfs:filesystem@0.1.2
+cfs:graphicsmagick@0.0.18
 cfs:gridfs@0.0.31
 cfs:http-methods@0.0.27
 cfs:http-publish@0.0.13
@@ -62,6 +63,7 @@ minimongo@1.0.7
 mobile-status-bar@1.0.3
 mongo@1.1.0
 mongo-livedata@1.0.8
+mrt:fancybox@0.5.0
 nemo64:bootstrap@3.3.1_1
 nemo64:bootstrap-data@3.3.1_1
 observe-sequence@1.0.5
