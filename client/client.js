@@ -1,4 +1,4 @@
-
+Session.set('requestName','request-1');
 //__ FileStore
 
 // ---> cfs:filesystem
@@ -60,7 +60,7 @@ Template.dropZone.events({
     FS.Utility.eachFile(event, function(file) {
       var fileObj = new FS.File(file);
       fileObj.fileLabel = fileName;
-      fileObj.requestName = 'request-2';
+      fileObj.requestName = Session.get('requestName');
       var fileUploaded = Files.insert(fileObj, function(error, result) {
         console.log('le fichier = ' + fileUploaded._id);
         if (error)

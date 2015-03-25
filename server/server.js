@@ -1,3 +1,5 @@
+
+
 var filesPath = "";
 filesPath = '/mnt/uploads/nom_du_client';
 //__ Debug
@@ -33,13 +35,13 @@ Files = new FS.Collection('files', {
       ],
       extensions: ['jpg', 'jpeg', 'png', 'dgw', 'tiff', 'gzip', 'pdf', 'doc', 'docx']
     },
-    onInvalid: function (message) {
-      if (Meteor.isClient) {
-        alert(message);
-      } else {
-        console.log(message);
-      }
-    }
+    // onInvalid: function (message) {
+    //   if (Meteor.isClient) {
+    //     alert(message);
+    //   } else {
+    //     console.log(message);
+    //   }
+  // }
   }
 });
 
