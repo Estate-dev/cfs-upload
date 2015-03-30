@@ -94,9 +94,9 @@
             <img src="{{this.url store='files-thumbs'}}" />
           </a>
           {{else}}
-          <a class="ui-item" href="{{this.url download=true}}" title="Télécharger le fichier">
-            <i class="fa fa-file-pdf-o fa-2x "> </i>
-            <span class="bg-{{this.extension}}">pdf</span>
+          <a class="ui-item" href="{{this.url store="files-original" download=true}}" title="Télécharger le fichier">
+            <i class="fa fa-file-{{this.extension}}-o fa-2x "> </i>
+            <span class="bg-{{this.extension}}">{{this.extension}}</span>
           </a>
           {{/if}} {{/if}}
         </td>
@@ -119,7 +119,7 @@
         </td>
         {{#if isUploaded}}
         <td align="right">
-          <a href="{{this.url download=true}}" title="Télécharger ce fichier" class="btn btn-info btn-xs btn-download" data-toggle="tooltip">
+          <a href="{{this.url store="files-original" download=true}}" title="Télécharger ce fichier" class="btn btn-info btn-xs btn-download" data-toggle="tooltip">
             <i class="fa fa-download "> </i>
           </a>
           <i class="fa fa-trash btn btn-danger btn-xs remove" title="Supprimer ce fichier"> </i>

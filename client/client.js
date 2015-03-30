@@ -22,7 +22,7 @@ Files = new FS.Collection('files', {
         'application/zip', 'application/vnd.ms-powerpoint',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
       ],
-      extensions: ['jpg','jpeg','png','dgw','tiff','gzip','pdf','doc','docx']
+      extensions: ['jpg','jpeg','png','dgw','tiff','gzip','zip','pdf','doc','docx']
     }
   }
 });
@@ -94,6 +94,9 @@ Template.UploadTable.helpers({
   },
   listIndex: function() {
     return currentIndex += 1;
+  },
+  fileSize: function (size) {
+    // @todo
   }
 });
 

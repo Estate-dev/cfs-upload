@@ -33,7 +33,7 @@ Files = new FS.Collection('files', {
         'application/zip', 'application/vnd.ms-powerpoint',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
       ],
-      extensions: ['jpg', 'jpeg', 'png', 'dgw', 'tiff', 'gzip', 'pdf', 'doc', 'docx']
+      extensions: ['jpg', 'jpeg', 'png', 'dgw', 'tiff', 'gzip','zip', 'pdf', 'doc', 'docx']
     },
     // onInvalid: function (message) {
     //   if (Meteor.isClient) {
