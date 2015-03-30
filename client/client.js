@@ -1,4 +1,5 @@
-Session.set('requestName','request-1');
+Session.set('requestName', 'request-1');
+Session.setDefault('active_step', 1);
 //__ FileStore
 
 // ---> cfs:filesystem
@@ -21,17 +22,12 @@ Files = new FS.Collection('files', {
         'application/zip', 'application/vnd.ms-powerpoint',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
       ],
-      extensions: ['jpg', 'jpeg', 'png', 'dgw', 'tiff', 'gzip', 'pdf', 'doc', 'docx']
+      extensions: ['jpg','jpeg','png','dgw','tiff','gzip','pdf','doc','docx']
     }
   }
 });
 
 Meteor.subscribe('files');
-
-//__ Requests Collection
-Requests = new Mongo.Collection('requests');
-Meteor.subscribe("requests");
-
 
 //__ Dropzone
 
@@ -41,7 +37,8 @@ Template.dropZone.events({
     if (tpl.find('#fileName').value === '') {
       event.preventDefault();
       $('.fileUploader').disabled = true;
-      toastr.warning("Ce qu'il faut savoir ...", "<h4><strong>Veuillez nommer le fichier !</strong</h4>");
+      toastr.warning("Ce qu'il faut savoir ...",
+        "<h4><strong>Veuillez nommer le fichier !</strong</h4>");
     } else {
       return true;
     }
@@ -49,7 +46,8 @@ Template.dropZone.events({
   'click .fileUploader': function(event, tpl) {
     if (tpl.find('#fileName').value === '') {
       event.preventDefault();
-      toastr.warning("Ce qu'il faut savoir ...", "<h4><strong>Veuillez nommer le fichier !</strong</h4>");
+      toastr.warning("Ce qu'il faut savoir ...",
+        "<h4><strong>Veuillez nommer le fichier !</strong</h4>");
     } else {
       toastr.clear();
       return true;
@@ -66,13 +64,19 @@ Template.dropZone.events({
         if (error)
           console.log('Error msg is : ' + error);
         else
-        toastr.success("Ce qu'il fallait faire...", "<h4>Votre fichier a bien été enregistré</h4>");
+          toastr.success("Ce qu'il fallait faire...",
+            "<h4>Votre fichier a bien été enregistré</h4>");
         tpl.find('#fileName').value = '';
       });
-
-      if(Requests.find({name:'request-1'}).count() === 0 ) {
-        Requests.insert({name: 'request-1'});
+// For test only !!!
+      if (Requests.find({
+          name: 'request-1'
+        }).count() === 0) {
+        Requests.insert({
+          name: 'request-1'
+        });
       }
+// End for test only !!
     });
   }
 });
@@ -109,7 +113,7 @@ Template.UploadTable.events({
 
 Template.UploadTable.rendered = function() {
   $('a[rel=propertyFiles]').fancybox({
-    padding : 0
+    padding: 0
   });
 }
 Template.fileTable.helpers({

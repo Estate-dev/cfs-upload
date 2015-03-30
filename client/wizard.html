@@ -1,0 +1,59 @@
+<template name="wizard">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span class="panel-title">Plans & Images du bien</span>
+            <div class="btn-group pull-right">
+              <a id="info-upload" href="#" class="btn btn-default btn-xs">
+                <span class="fa fa-info-circle"></span>
+              </a>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="panel-body">
+            {{> dialogStepOne }}
+            {{> dialogStepTwo }}
+            {{> dialogStepThree }}
+          </div>
+        <div class="panel-footer">
+          {{#if activeStepIs "1" }}
+          <h2>step one</h2>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+
+
+<template name="dialogStepOne">
+  <div id="dialogStepOne" class="{{stepOneVisibility}} dialog-page">
+    {{> fileTable}}
+    <div class="btn-toolbar" role="toolbar">
+      <div id="nextButton" class="btn btn-default pull-right">Next</div>
+    </div>
+  </div>
+</template>
+<template name="dialogStepTwo">
+  <div id="dialogStepTwo" class="{{stepTwoVisibility}} dialog-page">
+    <p>step 2</p>
+    <div class="btn-toolbar" role="toolbar">
+      <div id="backButton" class="btn btn-default">précédent</div>
+      <div id="nextButton" class="btn btn-default pull-right">next</div>
+    </div>
+  </div>
+</template>
+<template name="dialogStepThree">
+  <div id="dialogStepThree" class="{{stepThreeVisibility}} dialog-page">
+    <p>
+      step3
+    </p>
+    <div class="btn-toolbar" role="toolbar">
+      <div id="backButton" class="btn btn-default">précédent</div>
+      <div id="nextButton" class="btn btn-default pull-right">valider </div>
+    </div>
+  </div>
+</template>
